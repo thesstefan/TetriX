@@ -2,7 +2,10 @@
 
 #include "ofMain.h"
 
+#include "piece.h"
+
 class ofApp : public ofBaseApp{
+    std::unique_ptr<Piece> piece;
 
 	public:
 		void setup();
