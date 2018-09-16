@@ -2,12 +2,12 @@
 
 #include "ofMain.h"
 
-#include "piece.h"
+#include "tetromino.h"
 
 #include "board.h"
 
 class ofApp : public ofBaseApp{
-    std::unique_ptr<Piece> piece;
+    std::unique_ptr<Tetromino> tetromino;
 
     Board board;
 

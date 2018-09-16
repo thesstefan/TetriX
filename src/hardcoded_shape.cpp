@@ -1,6 +1,6 @@
-#include "piece.h"
+#include "tetromino.h"
 
-ofColor getColorFromType(const enum PieceShape shapeType) {
+ofColor getColorFromType(const enum TetrominoShape shapeType) {
     if (shapeType == OShape)
         return ofColor::yellow;
     else if (shapeType == TShape)
@@ -20,7 +20,7 @@ ofColor getColorFromType(const enum PieceShape shapeType) {
 }
 
 std::array<std::array<std::array<bool, 4>, 4>, 4>  
-    getShapeFromType(const enum PieceShape shapeType) {
+    getShapeFromType(const enum TetrominoShape shapeType) {
 
     if (shapeType == OShape) {
         return std::array<std::array<std::array<bool, 4>, 4>, 4>

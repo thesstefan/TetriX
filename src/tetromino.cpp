@@ -1,22 +1,22 @@
-#include "piece.h"
+#include "tetromino.h"
 
-Piece::Piece(const ofPoint &position, const enum PieceShape shapeType) :
+Tetromino::Tetromino(const ofPoint &position, const enum TetrominoShape shapeType) :
     position(position), color(getColorFromType(shapeType)), shape(getShapeFromType(shapeType)) {
     
     currentRotation = 0;
 }
 
-void Piece::drawTile(const ofPoint &position) const {
+void Tetromino::drawTile(const ofPoint &position) const {
     ofPushStyle();
 
     ofSetColor(color);
 
-    ofDrawRectangle(position, TILE_SIZE - 0.5, TILE_SIZE - 0.5);
+    ofDrawRectangle(position, BLOCK_SIZE - 0.5, BLOCK_SIZE - 0.5);
 
     ofPopStyle();
 }
 
-void Piece::draw() const {
+void Tetromino::draw() const {
     int row_index = 0;
 
     for (auto const &row : shape[currentRotation]) {
@@ -24,8 +24,8 @@ void Piece::draw() const {
 
         for (auto const &column : row) {
             if (column == true)
-                drawTile(ofPoint(position.x + TILE_SIZE * column_index,
-                                 position.y + TILE_SIZE * row_index));
+                drawTile(ofPoint(position.x + BLOCK_SIZE * column_index,
+                                 position.y + BLOCK_SIZE * row_index));
 
             column_index++;
         }
@@ -34,7 +34,7 @@ void Piece::draw() const {
     }
 }
 
-void Piece::rotate(int direction) {
+void Tetromino::rotate(int direction) {
     if (direction < 0) {
         if (currentRotation == 3)
             currentRotation = 0;
@@ -48,10 +48,10 @@ void Piece::rotate(int direction) {
     }
 }
 
-void Piece::translate(const ofPoint &amount) {
+void Tetromino::translate(const ofPoint &amount) {
     position += amount;
 }
 
-ofPoint Piece::getPosition() const {
+ofPoint Tetromino::getPosition() const {
     return position;
 }

@@ -2,20 +2,20 @@
 
 #include "ofMain.h"
 
-#include "piece.h"
+#include "tetromino.h"
 
 class Board {
     private:
         const ofRectangle bounds;
 
-    public:
-        constexpr static int SIZE = 20;
+        std::array<std::array<int, BOARD_COLUMNS>, BOARD_ROWS> landedBlocks;
 
+    public:
         Board(const ofRectangle &bounds);
 
         void update();
 
         void draw() const;
 
-        bool collision(const Piece &piece) const;
+        bool collision(const Tetromino &tetromino) const;
 };

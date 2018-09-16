@@ -2,16 +2,16 @@
 
 #include "ofMain.h"
 
-const int TILE_SIZE = 20;
+#include "constants.h"
 
-enum PieceShape { OShape, TShape, IShape, JShape, LShape, SShape, ZShape };
+enum TetrominoShape { OShape, TShape, IShape, JShape, LShape, SShape, ZShape };
 
-ofColor getColorFromType(const enum PieceShape shapeType);
+ofColor getColorFromType(const enum TetrominoShape shapeType);
 
 std::array<std::array<std::array<bool, 4>, 4>, 4>
-    getShapeFromType(const enum PieceShape shapeType);
+    getShapeFromType(const enum TetrominoShape shapeType);
 
-class Piece {
+class Tetromino {
     private:
         ofPoint position;
 
@@ -26,7 +26,7 @@ class Piece {
         int currentRotation;
 
     public:
-        Piece(const ofPoint &position, const enum PieceShape shapeType);
+        Tetromino(const ofPoint &position, const enum TetrominoShape shapeType);
 
         void draw() const;
 
