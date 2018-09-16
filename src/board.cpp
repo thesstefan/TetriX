@@ -1,6 +1,13 @@
 #include "board.h"
 
-Board::Board(const ofRectangle &bounds) : bounds(bounds) {}
+#include "misc.h"
+
+#include <iostream>
+
+Board::Board(const ofRectangle &bounds) : bounds(bounds) {
+    for (auto &row : landedBlocks) 
+        row.fill(TetrominoType::NoType);
+}
 
 void Board::draw() const {
     ofPushStyle();
@@ -11,16 +18,131 @@ void Board::draw() const {
 
     ofDrawRectangle(bounds);
 
-    for (int rowIndex = 0; rowIndex < bounds.width / BLOCK_SIZE; rowIndex++)
-        for (int columnIndex = 0; columnIndex < bounds.height / BLOCK_SIZE; columnIndex++) {
-            ofDrawRectangle(ofPoint(bounds.x + rowIndex * BLOCK_SIZE,
-                                    bounds.y + columnIndex * BLOCK_SIZE),
-                            BLOCK_SIZE, BLOCK_SIZE);
+    ofPopStyle();
+
+    int rowIndex = 0;
+    for (auto const &row : landedBlocks) {
+        int columnIndex = 0;
+
+        for (auto const &column : row) {
+            if (column != TetrominoType::NoType) {
+                drawBlock(ofPoint(bounds.x + columnIndex * BLOCK_SIZE,
+                                  bounds.y + rowIndex * BLOCK_SIZE), 
+                          getColorFromType(column));
+            }
+
+            columnIndex++;
         }
 
-    ofPopStyle();
+        rowIndex++;
+    }
+
 }
 
-bool Board::collision(const Tetromino &tetromino) const {
-    return tetromino.getPosition().y >= bounds.y + bounds.height;
+bool Board::collides(const Tetromino &tetromino) const {
+    const std::array<std::array<bool, 4>, 4> tetrominoShape = tetromino.getCurrentShape();
+
+    int rowIndex = 0;
+    for (auto const &row : tetrominoShape) {
+        int columnIndex = 0;
+
+        for (auto const &column : row) {
+            if (column == true) {
+                ofPoint relativePosition = tetromino.getPosition() - bounds.position;
+
+                if (relativePosition.y / BLOCK_SIZE + rowIndex >= BOARD_ROWS)
+                    return true;
+
+                if (landedBlocks[relativePosition.y / BLOCK_SIZE + rowIndex]
+                                [relativePosition.x / BLOCK_SIZE + columnIndex] 
+                                != TetrominoType::NoType)
+                    return true;
+            }
+
+            columnIndex++;
+        }
+
+        rowIndex++;
+    }
+
+    return false;
+}
+
+bool Board::collidesSideways(const Tetromino &tetromino) const {
+    const std::array<std::array<bool, 4>, 4> tetrominoShape = tetromino.getCurrentShape();
+
+    int rowIndex = 0;
+    for (auto const &row : tetrominoShape) {
+        int columnIndex = 0;
+
+        for (auto const &column : row) {
+            if (column == true) {
+                ofPoint relativePosition = tetromino.getPosition() - bounds.position;
+
+                if (relativePosition.x / BLOCK_SIZE + columnIndex >= BOARD_COLUMNS ||
+                    relativePosition.x / BLOCK_SIZE + columnIndex < 0) {
+
+                        return true;
+                }
+            }
+
+            columnIndex++;
+        }
+
+        rowIndex++;
+    }
+
+    return false;
+}
+
+bool Board::collidesTop(const Tetromino &tetromino) const {
+    const std::array<std::array<bool, 4>, 4> tetrominoShape = tetromino.getCurrentShape();
+
+    int rowIndex = 0;
+    for (auto const &row : tetrominoShape) {
+        int columnIndex = 0;
+
+        for (auto const &column : row) {
+            if (column == true) {
+                ofPoint relativePosition = tetromino.getPosition() - bounds.position;
+                
+                if (relativePosition.y / BLOCK_SIZE <= 0 && collides(tetromino))
+                    return true;
+            }
+
+            columnIndex++;
+        }
+
+        rowIndex++;
+    }
+
+    return false;
+}
+
+void Board::land(const Tetromino &tetromino) {
+    const std::array<std::array<bool, 4>, 4> tetrominoShape = tetromino.getCurrentShape();
+
+    int rowIndex = 0;
+    for (auto const &row : tetrominoShape) {
+        int columnIndex = 0;
+
+        for (auto const &column : row) {
+            if (column == true) {
+                ofPoint relativePosition = tetromino.getPosition() - bounds.position;
+
+                if (landedBlocks[relativePosition.y / BLOCK_SIZE + rowIndex]
+                                [relativePosition.x / BLOCK_SIZE + columnIndex] 
+                                == TetrominoType::NoType) {
+
+                    landedBlocks[relativePosition.y / BLOCK_SIZE + rowIndex]
+                                [relativePosition.x / BLOCK_SIZE + columnIndex] 
+                                = tetromino.getType();
+                }
+            }
+
+            columnIndex++;
+        }
+
+        rowIndex++;
+    }
 }

@@ -8,7 +8,7 @@ class Board {
     private:
         const ofRectangle bounds;
 
-        std::array<std::array<int, BOARD_COLUMNS>, BOARD_ROWS> landedBlocks;
+        std::array<std::array<enum TetrominoType, BOARD_COLUMNS>, BOARD_ROWS> landedBlocks;
 
     public:
         Board(const ofRectangle &bounds);
@@ -17,5 +17,9 @@ class Board {
 
         void draw() const;
 
-        bool collision(const Tetromino &tetromino) const;
+        bool collides(const Tetromino &tetromino) const;
+        bool collidesSideways(const Tetromino &tetromino) const;
+        bool collidesTop(const Tetromino &tetromino) const;
+
+        void land(const Tetromino &tetromino);
 };

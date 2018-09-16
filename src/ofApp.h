@@ -8,9 +8,13 @@
 
 class ofApp : public ofBaseApp{
     private:
+        bool GAME_OVER = false;
+
         std::unique_ptr<Tetromino> tetromino;
 
-        float deltaTime;
+        Board board;
+
+        float deltaTime = 0;
 
     public:
         ofApp();

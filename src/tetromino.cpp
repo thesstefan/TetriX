@@ -3,7 +3,8 @@
 #include "misc.h"
 
 Tetromino::Tetromino(const ofPoint &position, const enum TetrominoType type) :
-    position(position), color(getColorFromType(type)), shape(getShapeFromType(type)) {
+    position(position), type(type),
+    color(getColorFromType(type)), shape(getShapeFromType(type)) {
     
     currentRotation = 0;
 }
@@ -39,4 +40,12 @@ void Tetromino::translate(const ofPoint &amount) {
 
 ofPoint Tetromino::getPosition() const {
     return position;
+}
+
+enum TetrominoType Tetromino::getType() const {
+    return type;
+}
+
+std::array<std::array<bool, 4>, 4> Tetromino::getCurrentShape() const {
+    return shape[currentRotation];
 }
