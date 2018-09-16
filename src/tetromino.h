@@ -4,29 +4,20 @@
 
 #include "constants.h"
 
-enum TetrominoShape { OShape, TShape, IShape, JShape, LShape, SShape, ZShape };
-
-ofColor getColorFromType(const enum TetrominoShape shapeType);
-
-std::array<std::array<std::array<bool, 4>, 4>, 4>
-    getShapeFromType(const enum TetrominoShape shapeType);
+enum TetrominoType { NoType, OType, TType, IType, JType, LType, SType, ZType };
 
 class Tetromino {
     private:
         ofPoint position;
 
-        ofRectangle bounds;
-
         const ofColor color;
 
         std::array<std::array<std::array<bool, 4>, 4>, 4> shape;
 
-        void drawTile(const ofPoint &position) const;
-
         int currentRotation;
 
     public:
-        Tetromino(const ofPoint &position, const enum TetrominoShape shapeType);
+        Tetromino(const ofPoint &position, const enum TetrominoType type);
 
         void draw() const;
 
