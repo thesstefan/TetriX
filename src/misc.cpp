@@ -10,29 +10,29 @@ void drawBlock(const ofPoint &position, const ofColor &color) {
     ofPopStyle();
 }
 
-ofColor getColorFromType(const enum TetrominoShape shapeType) {
-    if (shapeType == OShape)
+ofColor getColorFromType(const enum TetrominoType type) {
+    if (type == OType)
         return ofColor::yellow;
-    else if (shapeType == TShape)
+    else if (type == TType)
         return ofColor::magenta;
-    else if (shapeType == IShape)
+    else if (type == IType)
         return ofColor::cyan;
-    else if (shapeType == JShape)
+    else if (type == JType)
         return ofColor::blue;
-    else if (shapeType == LShape)
+    else if (type == LType)
         return ofColor::orange;
-    else if (shapeType == SShape)
+    else if (type == SType)
         return ofColor::green;
-    else if (shapeType == ZShape)
+    else if (type == ZType)
         return ofColor::red;
     else
         throw "Unknown shape type.";
 }
 
 std::array<std::array<std::array<bool, 4>, 4>, 4>  
-    getShapeFromType(const enum TetrominoShape shapeType) {
+    getTypeFromType(const enum TetrominoType type) {
 
-    if (shapeType == OShape) {
+    if (type == OType) {
         return std::array<std::array<std::array<bool, 4>, 4>, 4>
                {{{{{0, 1, 1, 0},
                    {0, 1, 1, 0},
@@ -53,7 +53,7 @@ std::array<std::array<std::array<bool, 4>, 4>, 4>
                    {0, 1, 1, 0},
                    {0, 0, 0, 0}, 
                    {0, 0, 0, 0}}}}};
-    } else if (shapeType == TShape) {  
+    } else if (type == TType) {  
         return std::array<std::array<std::array<bool, 4>, 4>, 4>
                {{{{{0, 1, 0, 0},
                    {1, 1, 1, 0},
@@ -74,7 +74,7 @@ std::array<std::array<std::array<bool, 4>, 4>, 4>
                    {1, 1, 0, 0},
                    {0, 1, 0, 0}, 
                    {0, 0, 0, 0}}}}};
-    } else if (shapeType == IShape) {  
+    } else if (type == IType) {  
         return std::array<std::array<std::array<bool, 4>, 4>, 4>
                {{{{{0, 0, 0, 0},
                    {1, 1, 1, 1},
@@ -95,7 +95,7 @@ std::array<std::array<std::array<bool, 4>, 4>, 4>
                    {0, 1, 0, 0},
                    {0, 1, 0, 0}, 
                    {0, 1, 0, 0}}}}};
-    } else if (shapeType == JShape) {
+    } else if (type == JType) {
         return std::array<std::array<std::array<bool, 4>, 4>, 4>
                {{{{{1, 0, 0, 0},
                    {1, 1, 1, 0},
@@ -116,7 +116,7 @@ std::array<std::array<std::array<bool, 4>, 4>, 4>
                    {0, 1, 0, 0},
                    {1, 1, 0, 0}, 
                    {0, 0, 0, 0}}}}};
-    } else if (shapeType == LShape) {
+    } else if (type == LType) {
         return std::array<std::array<std::array<bool, 4>, 4>, 4>
                {{{{{0, 0, 1, 0},
                    {1, 1, 1, 0},
@@ -137,7 +137,7 @@ std::array<std::array<std::array<bool, 4>, 4>, 4>
                    {0, 1, 0, 0},
                    {0, 1, 0, 0}, 
                    {0, 0, 0, 0}}}}};
-    } else if (shapeType == SShape) {
+    } else if (type == SType) {
         return std::array<std::array<std::array<bool, 4>, 4>, 4>
                {{{{{0, 1, 1, 0},
                    {1, 1, 0, 0},
@@ -158,7 +158,7 @@ std::array<std::array<std::array<bool, 4>, 4>, 4>
                    {1, 1, 0, 0},
                    {0, 1, 0, 0}, 
                    {0, 0, 0, 0}}}}};
-    } else if (shapeType == ZShape) {
+    } else if (type == ZType) {
         return std::array<std::array<std::array<bool, 4>, 4>, 4>
                {{{{{1, 1, 0, 0},
                    {0, 1, 1, 0},
