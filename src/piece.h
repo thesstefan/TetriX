@@ -1,17 +1,23 @@
+#pragma once
+
 #include "ofMain.h"
 
-enum PieceShape { SquareShape, LShape };
+const int TILE_SIZE = 20;
+
+enum PieceShape { OShape, TShape, IShape, JShape, LShape, SShape, ZShape };
+
+ofColor getColorFromType(const enum PieceShape shapeType);
 
 std::array<std::array<std::array<bool, 4>, 4>, 4>
     getShapeFromType(const enum PieceShape shapeType);
 
 class Piece {
     private:
-        constexpr static int TILE_SIZE = 20;
+        ofPoint position;
+
+        ofRectangle bounds;
 
         const ofColor color;
-
-        ofPoint position;
 
         std::array<std::array<std::array<bool, 4>, 4>, 4> shape;
 
@@ -20,8 +26,13 @@ class Piece {
         int currentRotation;
 
     public:
-        Piece(const ofColor &color, const enum PieceShape shapeType,
-              const ofPoint &position);
+        Piece(const ofPoint &position, const enum PieceShape shapeType);
 
         void draw() const;
+
+        void rotate(int direction);
+
+        void translate(const ofPoint &amount);
+
+        ofPoint getPosition() const;
 };
