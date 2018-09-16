@@ -9,7 +9,6 @@ enum TetrominoType { NoType, OType, TType, IType, JType, LType, SType, ZType };
 class Tetromino {
     private:
         ofPoint position;
-
         const ofColor color;
 
         std::array<std::array<std::array<bool, 4>, 4>, 4> shape;
@@ -21,7 +20,7 @@ class Tetromino {
 
         void draw() const;
 
-        void rotate(int direction);
+        void rotate();
 
         void translate(const ofPoint &amount);
 

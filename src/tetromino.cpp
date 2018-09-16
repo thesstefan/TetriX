@@ -26,18 +26,11 @@ void Tetromino::draw() const {
     }
 }
 
-void Tetromino::rotate(int direction) {
-    if (direction < 0) {
-        if (currentRotation == 3)
-            currentRotation = 0;
-        else 
-            currentRotation++;
-    } else if (direction > 0) {
-        if (currentRotation == 0)
-            currentRotation = 3;
-        else 
-            currentRotation--;
-    }
+void Tetromino::rotate() {
+    if (currentRotation == 3)
+        currentRotation = 0;
+    else 
+        currentRotation++;
 }
 
 void Tetromino::translate(const ofPoint &amount) {
