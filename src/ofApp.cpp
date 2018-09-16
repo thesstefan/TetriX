@@ -2,13 +2,13 @@
 
 #include <iostream>
 
-ofApp::ofApp() : board(ofRectangle(ofPoint(ofGetWidth() / 3, 100), BLOCK_SIZE * 20, BLOCK_SIZE * 30)) {}
-//--------------------------------------------------------------
+ofApp::ofApp() {}
+
 void ofApp::setup(){
     ofBackground(0, 0, 0);
 
     tetromino = std::unique_ptr<Tetromino>
-        (new Tetromino(ofPoint(ofGetWidth() / 3, 100), TetrominoShape::IShape));
+        (new Tetromino(ofPoint(ofGetWidth() / 3, 100), TetrominoType::ZType));
 }
 
 //--------------------------------------------------------------
@@ -25,8 +25,6 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     tetromino->draw();
-
-    board.draw();
 }
 
 //--------------------------------------------------------------
@@ -36,5 +34,5 @@ void ofApp::keyPressed(int key) {
     else if (key == OF_KEY_LEFT)
         tetromino->translate(ofPoint(-BLOCK_SIZE, 0));
     else if (key == OF_KEY_UP)
-        tetromino->rotate(1);
+        tetromino->rotate();
 }

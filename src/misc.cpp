@@ -30,7 +30,7 @@ ofColor getColorFromType(const enum TetrominoType type) {
 }
 
 std::array<std::array<std::array<bool, 4>, 4>, 4>  
-    getTypeFromType(const enum TetrominoType type) {
+    getShapeFromType(const enum TetrominoType type) {
 
     if (type == OType) {
         return std::array<std::array<std::array<bool, 4>, 4>, 4>

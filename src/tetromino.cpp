@@ -17,7 +17,7 @@ void Tetromino::draw() const {
         for (auto const &column : row) {
             if (column == true)
                 drawBlock(ofPoint(position.x + BLOCK_SIZE * column_index,
-                                  position.y + BLOCK_SIZE * row_index));
+                                  position.y + BLOCK_SIZE * row_index), color);
 
             column_index++;
         }

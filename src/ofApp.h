@@ -7,17 +7,17 @@
 #include "board.h"
 
 class ofApp : public ofBaseApp{
-    std::unique_ptr<Tetromino> tetromino;
+    private:
+        std::unique_ptr<Tetromino> tetromino;
 
-    Board board;
+        float deltaTime;
 
-    float deltaTime;
+    public:
+        ofApp();
 
-	public:
-    ofApp();
-		void setup();
-		void update();
-		void draw();
+	void setup();
+	void update();
+	void draw();
 
-		void keyPressed(int key);
+	void keyPressed(int key);
 };
